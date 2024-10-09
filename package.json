@@ -4,7 +4,9 @@
   "description": "Complete Authentication",
   "main": "backend/index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon backend/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
