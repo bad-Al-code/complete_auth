@@ -1,4 +1,5 @@
 import {
+  PASSWORD_RESET_REQUEST_TEMPLATE,
   VERIFICATION_EMAIL_TEMPLATE,
   WELCOME_EMAIL_TEMPLATE,
 } from "./emailTemplates.js";
@@ -44,5 +45,23 @@ export const sendWelcomeEmail = async (email, name) => {
   } catch (error) {
     console.error(`Error sending welcome email: ${error} `);
     throw new Error(`Error sending welcome email:${error}`);
+  }
+};
+
+export const sendPasswordResetEmail = async (email, resetURL) => {
+  const recipient = [{ email }];
+
+  try {
+    const response = await mailtrapClient.send({
+      from: sender,
+      to: recipient,
+      subject: "Welcome to Al_Auth",
+      html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetURL),
+      category: "Reset Password",
+    });
+    console.log("Password Reset email sent succssfully", response);
+  } catch (error) {
+    console.error(`Error sending password reset email: ${error} `);
+    throw new Error(`Error sending password reset email:${error}`);
   }
 };
