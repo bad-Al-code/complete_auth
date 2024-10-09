@@ -34,9 +34,9 @@ export const sendWelcomeEmail = async (email, name) => {
       from: sender,
       to: recipient,
       subject: "Welcome to Al_Auth",
-      html: WELCOME_EMAIL_TEMPLATE.replace("{userEmail}", email).replace(
-        "{userName}",
-        name,
+      html: WELCOME_EMAIL_TEMPLATE.replace(/{userName}/g, name).replace(
+        /{userEmail}/g,
+        email,
       ),
       category: "Welcome Email",
     });
