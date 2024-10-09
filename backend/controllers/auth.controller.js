@@ -43,9 +43,11 @@ export const signup = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
 export const login = async (req, res) => {
   res.send("login route");
 };
+
 export const logout = async (req, res) => {
   res.send("logout route");
 };
