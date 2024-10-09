@@ -9,6 +9,4 @@ Complete Authentication
   4.  Forgot Password
       - Send Email with Verification Token
       - After changing password, send password reset email
-  5.  Reset Password
-      - After changing password, send password reset email
-  6.  Check Auth
+  5.  Check Auth
