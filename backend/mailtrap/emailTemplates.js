@@ -205,3 +205,83 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
 </body>
 </html>
 `;
+export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Reset Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      background-color: #000000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px 8px 0 0;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .content {
+      padding: 20px;
+      text-align: left;
+    }
+    .content p {
+      font-size: 16px;
+      color: #333333;
+      line-height: 1.6;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #888888;
+      font-size: 0.8em;
+    }
+    .footer a {
+      color: #000000;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="email-container">
+    <!-- Email Header -->
+    <div class="header">
+      <h1>Password Reset Successful</h1>
+    </div>
+
+    <!-- Email Content -->
+    <div class="content">
+      <p>Hello,</p>
+      <p>We wanted to let you know that your password has been successfully reset.</p>
+      <p>If you did not request this change, please contact our support team immediately.</p>
+      <p>For your security, we recommend that you keep your account details safe and enable two-factor authentication if available.</p>
+      <p>Best regards,<br>The al_auth Team</p>
+    </div>
+
+    <!-- Email Footer -->
+    <div class="footer">
+      <p>This is an automated message, please do not reply to this email.</p>
+      <p>&copy; 2024 al_auth. All rights reserved.</p>
+    </div>
+  </div>
+
+</body>
+</html>
+`;
