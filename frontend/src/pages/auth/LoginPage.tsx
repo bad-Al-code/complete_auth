@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import FormWrapper from "../../components/FormWrapper";
 import Checkbox from "../../components/Checkbox";
 import AuthPrompt from "../../components/AuthPrompt";
+import ForgotPassword from "../../components/ForgotPassword";
 
 const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,10 @@ const LoginPage: React.FC = () => {
     console.log("Navigate to Signup Page");
   };
 
+  const handleForgotPasswordClick = () => {
+    console.log("Navigating to password reset page...");
+  };
+
   return (
     <FormWrapper title="Log in to your account">
       <form onSubmit={handleSubmit}>
@@ -72,6 +77,7 @@ const LoginPage: React.FC = () => {
             onChange={handleCheckboxChange}
             className="mt-2"
           />
+          <ForgotPassword onForgotPasswordClick={handleForgotPasswordClick} />
         </div>
 
         <Button
