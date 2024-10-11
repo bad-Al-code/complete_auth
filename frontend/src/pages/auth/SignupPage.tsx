@@ -3,6 +3,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import FormWrapper from "../../components/FormWrapper";
 import Checkbox from "../../components/Checkbox";
+import AuthPrompt from "../../components/AuthPrompt";
 
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -100,6 +101,12 @@ const SignupPage: React.FC = () => {
           variant="filled"
           fullWidth
           className="mt-4"
+        />
+
+        <AuthPrompt
+          actionText="Login"
+          onActionClick={handleLoginClick}
+          promptText="Already have an account?"
         />
       </form>
     </FormWrapper>
