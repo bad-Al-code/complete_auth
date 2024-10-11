@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import FormWrapper from "../../components/FormWrapper";
 import Checkbox from "../../components/Checkbox";
 import AuthPrompt from "../../components/AuthPrompt";
+import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
 
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ const SignupPage: React.FC = () => {
     termsAccepted: false,
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [password, setPassword] = useState<string>("");
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -83,6 +86,20 @@ const SignupPage: React.FC = () => {
           onChange={handleInputChange}
           error={errors.email}
         />
+
+        <Input
+          label="Password"
+          name="Password"
+          type="password"
+          value={password}
+          required
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+
+        <PasswordStrengthMeter password={password} isFocused={isFocused} />
 
         <Checkbox
           id="terms"
