@@ -1,5 +1,11 @@
+import Button from "./components/Button";
+
 const App: React.FC = () => {
-  return <h1 className="underline">Hello</h1>;
+  return (
+    <>
+      <Button label="Button" fullWidth />
+    </>
+  );
 };
 
 export default App;
