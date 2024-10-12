@@ -1,3 +1,4 @@
+import ReactQuery from "./demo/react-query";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import LoginPage from "./pages/auth/LoginPage";
 import OtpVerificationPage from "./pages/auth/OTPVerificationPage";
@@ -7,12 +8,13 @@ import SignupPage from "./pages/auth/SignupPage";
 const App: React.FC = () => {
   return (
     <div>
-      <SignupPage />
-      <OtpVerificationPage />
-
-      <LoginPage />
-      <ForgotPasswordPage />
-      <ResetPasswordPage />
+      <ReactQuery />
+      {/* <SignupPage /> */}
+      {/* <OtpVerificationPage /> */}
+      {/**/}
+      {/* <LoginPage /> */}
+      {/* <ForgotPasswordPage /> */}
+      {/* <ResetPasswordPage /> */}
     </div>
   );
 };

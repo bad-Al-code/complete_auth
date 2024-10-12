@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   ...props
 }) => {
-  const baseStyles = `flex items-center justify-center px-5  max-w-xs md:max-w-sm py-2.5 text-sm font-medium rounded-lg transition-transform duration-150 focus:outline-none ${
+  const baseStyles = `flex items-center justify-center px-5  py-2.5 text-sm font-medium rounded-lg transition-transform duration-150 focus:outline-none ${
     fullWidth ? "w-full" : ""
   }`;
 

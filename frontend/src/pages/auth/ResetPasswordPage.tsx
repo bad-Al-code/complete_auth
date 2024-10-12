@@ -38,7 +38,7 @@ type FormData = z.infer<typeof schema>;
 
 const ResetPasswordPage: React.FC = () => {
   const {
-    formState: { errors },
+    formState: { isValid, errors },
     register,
     handleSubmit,
     watch,
@@ -133,7 +133,12 @@ const ResetPasswordPage: React.FC = () => {
                 )}
               </div>
 
-              <Button type="submit" label="Update Password" fullWidth />
+              <Button
+                disabled={isValid}
+                type="submit"
+                label="Update Password"
+                fullWidth
+              />
             </form>
           </div>
         </div>

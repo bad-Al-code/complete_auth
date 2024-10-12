@@ -35,7 +35,7 @@ const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
         {sectionStrengths.map((colorClass, index) => (
           <div key={index} className="flex-1 h-2 mx-1 bg-gray-300 rounded-full">
             <div
-              className={`${colorClass} h-full`}
+              className={`${colorClass} h-full rounded-full`}
               style={{ width: `${strength >= (index + 1) * 25 ? 100 : 0}%` }}
             />
           </div>
