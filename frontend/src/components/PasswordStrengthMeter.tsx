@@ -1,5 +1,3 @@
-// components/PasswordStrengthMeter.tsx
-
 import { FaCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
@@ -60,7 +58,9 @@ const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
         {requirements.map((req, index) => (
           <li key={index} className="flex items-center">
             <span
-              className={`mr-2 ${req.re.test(password) ? "text-green-500" : "text-red-500"}`}
+              className={`mr-2 ${
+                req.re.test(password) ? "text-green-500" : "text-red-500"
+              }`}
             >
               {req.re.test(password) ? <FaCheck /> : <IoMdClose />}
             </span>
