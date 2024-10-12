@@ -1,10 +1,9 @@
 import { FaCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
 import {
+  requirements,
   getStrength,
   getStrengthColor,
-  requirements,
 } from "../utils/passwordStrengthUtil";
 
 interface PasswordStrengthMeterProps {
@@ -27,36 +26,38 @@ const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
     >
       {/* Strength bars */}
       <div className="flex justify-between gap-2 mt-2">
+        {/* Four Segments */}
         <div className="w-full h-1 bg-gray-300">
           <div
             className={`h-1 ${password.length > 0 ? strengthColor : ""}`}
-            style={{ width: "100%" }}
+            style={{ width: strength >= 25 ? "100%" : "0%" }} // First segment (25%)
           />
         </div>
         <div className="w-full h-1 bg-gray-300">
           <div
-            className={`h-1 ${strength < 30 ? "" : strengthColor}`}
-            style={{ width: strength < 30 ? "0%" : "100%" }}
+            className={`h-1 ${strength >= 50 ? strengthColor : ""}`}
+            style={{ width: strength >= 50 ? "100%" : "0%" }} // Second segment (50%)
           />
         </div>
         <div className="w-full h-1 bg-gray-300">
           <div
-            className={`h-1 ${strength < 50 ? "" : strengthColor}`}
-            style={{ width: strength < 50 ? "0%" : "100%" }}
+            className={`h-1 ${strength >= 75 ? strengthColor : ""}`}
+            style={{ width: strength >= 75 ? "100%" : "0%" }} // Third segment (75%)
           />
         </div>
         <div className="w-full h-1 bg-gray-300">
           <div
-            className={`h-1 ${strength < 70 ? "" : strengthColor}`}
-            style={{ width: strength < 70 ? "0%" : "100%" }}
+            className={`h-1 ${strength >= 100 ? strengthColor : ""}`}
+            style={{ width: strength === 100 ? "100%" : "0%" }} // Fourth segment (100%)
           />
         </div>
       </div>
 
-      {/* Requirement check list */}
+      {/* Requirement checklist */}
       <ul className="mt-4 text-sm text-gray-300">
         {requirements.map((req, index) => (
           <li key={index} className="flex items-center">
+            {/* Display check or close icon based on requirement met */}
             <span
               className={`mr-2 ${
                 req.re.test(password) ? "text-green-500" : "text-red-500"
