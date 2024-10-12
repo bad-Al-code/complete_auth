@@ -1,9 +1,9 @@
-import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import OtpVerificationPage from "./pages/auth/OTPVerificationPage";
 
 const App: React.FC = () => {
   return (
     <div>
-      <ForgotPasswordPage />
+      <OtpVerificationPage />
     </div>
   );
 };
