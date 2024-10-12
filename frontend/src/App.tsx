@@ -1,13 +1,9 @@
-import LoginPage from "./pages/auth/LoginPage";
-import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
-import SignupPage from "./pages/auth/SignupPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 
 const App: React.FC = () => {
   return (
     <div>
-      <LoginPage />
-      <SignupPage />
-      <ResetPasswordPage />
+      <ForgotPasswordPage />
     </div>
   );
 };

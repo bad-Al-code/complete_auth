@@ -133,7 +133,7 @@ const ResetPasswordPage: React.FC = () => {
                 )}
               </div>
 
-              <Button type="submit" label="Reset Password" fullWidth />
+              <Button type="submit" label="Update Password" fullWidth />
             </form>
           </div>
         </div>
