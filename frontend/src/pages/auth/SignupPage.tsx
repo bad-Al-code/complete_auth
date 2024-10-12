@@ -24,10 +24,13 @@ const schema = z.object({
     .string()
     .min(3, { message: "Name is required" })
     .max(50, { message: "Name must be less than 50 characters" }),
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" }),
   password: passwordSchema,
   acceptTerms: z.boolean().refine((val) => val === true, {
-    message: "You must accept Terms and Conditions",
+    message: "You must accept the Terms and Conditions",
   }),
 });
 
@@ -46,18 +49,12 @@ const SignupPage: React.FC = () => {
 
   const onSubmit = (data: FieldValues) => {
     console.log("Form Data:", data);
-    // Add your form submission logic here
+    // Add form submission logic here
   };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        {/* <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        />
-        <img className="w-8 h-8 mr-2" src="" alt="logo" />
-        Name */}
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -137,23 +134,25 @@ const SignupPage: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-1">
-                <div className="flex items-start gap-2">
-                  <input
-                    {...register("acceptTerms")}
-                    id="acceptTerms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                  />
-                  <div className="text-sm">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
+                    <input
+                      {...register("acceptTerms")}
+                      id="terms"
+                      aria-describedby="terms"
+                      type="checkbox"
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                    />
+                  </div>
+                  <div className="ml-3 text-sm">
                     <label
-                      htmlFor="acceptTerms"
+                      htmlFor="terms"
                       className="font-light text-gray-500 dark:text-gray-300"
                     >
                       I accept the{" "}
                       <a
-                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                         href="#"
+                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                       >
                         Terms and Conditions
                       </a>
@@ -162,12 +161,11 @@ const SignupPage: React.FC = () => {
                 </div>
 
                 {errors.acceptTerms && (
-                  <p className="text-sm text-red-600 dark:text-red-500">
+                  <p className="mt-1 text-red-500">
                     {errors.acceptTerms.message}
                   </p>
                 )}
               </div>
-
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
