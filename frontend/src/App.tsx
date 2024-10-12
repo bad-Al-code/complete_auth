@@ -1,4 +1,5 @@
 import LoginPage from "./pages/auth/LoginPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import SignupPage from "./pages/auth/SignupPage";
 
 const App: React.FC = () => {
@@ -6,6 +7,7 @@ const App: React.FC = () => {
     <div>
       <LoginPage />
       <SignupPage />
+      <ResetPasswordPage />
     </div>
   );
 };
