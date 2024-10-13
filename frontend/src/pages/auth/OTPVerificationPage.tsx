@@ -22,7 +22,7 @@ type FormData = z.infer<typeof schema>;
 
 const OtpVerificationPage: React.FC = () => {
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     register,
     handleSubmit,
     setValue,
@@ -31,12 +31,9 @@ const OtpVerificationPage: React.FC = () => {
     resolver: zodResolver(schema),
     defaultValues: { otp: new Array(6).fill("") },
   });
-
-  const navigate = useNavigate();
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const otp = watch("otp");
+  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -131,7 +128,7 @@ const OtpVerificationPage: React.FC = () => {
                   Resend OTP
                 </button>
 
-                <Button type="submit" label="Verify" />
+                <Button type="submit" label="Verify" disabled={isValid} />
               </div>
             </form>
           </div>
