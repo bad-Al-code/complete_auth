@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider } from "react-router-dom";
 
 import "./index.css";
-import router from "./routing/routes";
+import router from "./routes/routes";
 
 const queryClient = new QueryClient({
   defaultOptions: {

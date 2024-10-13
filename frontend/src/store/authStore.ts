@@ -11,14 +11,19 @@ interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   error: string | null;
-  isCheckingAuth: boolean;
   isLoading: boolean;
+  isCheckingAuth: boolean;
+  message: string | null;
 
   signup: (email: string, password: string, name: string) => Promise<void>;
-  otpVerify: (code: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  otpVerify: (code: string) => Promise<any>;
+  checkAuth: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (token: string, password: string) => Promise<void>;
 }
 
-const API_URL = "http://localhost:3000/api/auth";
 
 axios.defaults.withCredentials = true;
 
@@ -28,8 +33,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   error: null,
   isLoading: false,
   isCheckingAuth: true,
+  message: null,
 
-  signup: async (email: string, password: string, name: string) => {
+  signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
 
     try {
@@ -42,28 +48,21 @@ export const useAuthStore = create<AuthState>((set) => ({
         user: response.data.user,
         isAuthenticated: true,
         isLoading: false,
-        isCheckingAuth: false,
       });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        set({
-          error:
-            error.response?.data?.message ||
-            "An error occurred during the request",
-          isLoading: false,
-        });
-      } else {
-        set({
-          error: "An unknown error occurred",
-          isLoading: false,
-        });
-      }
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || "Error signing up",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
 
       throw error;
     }
   },
 
-  otpVerify: async (code: string) => {
+  otpVerify: async (code) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/verify-email`, { code });
@@ -73,19 +72,28 @@ export const useAuthStore = create<AuthState>((set) => ({
         isLoading: false,
       });
       return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        set({
-          error: error.response.data?.message || "Error verifying email",
-          isLoading: false,
-        });
-      } else {
-        set({
-          error: "An unexpected error occurred",
-          isLoading: false,
-        });
-      }
+    } catch (error: any) {
+      set({
+        error: error.response?.data?.message || "Error verifying email",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
 
+  checkAuth: async () => {
+    set({ isCheckingAuth: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/check-auth`);
+      set({
+        user: response.data.user,
+        isAuthenticated: true,
+        isCheckingAuth: false,
+      });
+    } catch (error: any) {
+      set({ error: null, isCheckingAuth: false, isAuthenticated: false });
+    }
+  },
       throw error;
     }
   },
