@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
 import { useState } from "react";
 import Button from "../../components/Button";
+import { Link, useNavigate } from "react-router-dom";
 
 const passwordSchema = z
   .string()
@@ -45,12 +46,16 @@ const SignupPage: React.FC = () => {
     watch,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const navigate = useNavigate();
+
   const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false);
   const passwordValue = watch("password") || "";
 
   const onSubmit = (data: FieldValues) => {
     console.log("Form Data:", data);
     // Add form submission logic here
+
+    navigate("/otpVerify");
   };
 
   return (
@@ -150,12 +155,13 @@ const SignupPage: React.FC = () => {
                       className="font-light text-gray-500 dark:text-gray-300"
                     >
                       I accept the{" "}
-                      <a
-                        href="#"
+                      <Link
+                        // TODO: replace with terms and conditions in future
+                        to="/"
                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                       >
                         Terms and Conditions
-                      </a>
+                      </Link>
                     </label>
                   </div>
                 </div>
@@ -171,12 +177,13 @@ const SignupPage: React.FC = () => {
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                <Link
+                  className="font-medium text-primary-600 hover:underline
+                dark:text-primary-500"
+                  to="/login"
                 >
                   Login here
-                </a>
+                </Link>
               </p>
             </form>
           </div>
