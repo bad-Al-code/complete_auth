@@ -1,10 +1,12 @@
 import React from "react";
+import { LuLoader } from "react-icons/lu";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: "filled" | "outline" | "text";
   icon?: React.ReactNode;
   fullWidth?: boolean;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -13,9 +15,10 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   fullWidth = false,
   className = "",
+  isLoading = false,
   ...props
 }) => {
-  const baseStyles = `flex items-center justify-center px-5  py-2.5 text-sm font-medium rounded-lg transition-transform duration-150 focus:outline-none ${
+  const baseStyles = `flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg transition-transform duration-150 focus:outline-none ${
     fullWidth ? "w-full" : ""
   }`;
 
@@ -42,7 +45,17 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={`${baseStyles} ${styles} ${className}`} {...props}>
-      {icon && <span className="mr-2">{icon}</span>} {label}
+      {isLoading ? (
+        <LuLoader
+          className="inline w-4 h-4 me-3 text-gray-200 animate-spin dark:text-gray-600"
+          size={24}
+        />
+      ) : (
+        <>
+          {icon && <span className="mr-2">{icon}</span>}
+          {label}
+        </>
+      )}
     </button>
   );
 };

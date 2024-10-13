@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
+import SuccessToast from "../../components/SuccessTost";
 
 const schema = z.object({
   otp: z
@@ -22,18 +24,21 @@ type FormData = z.infer<typeof schema>;
 
 const OtpVerificationPage: React.FC = () => {
   const {
-    formState: { errors, isValid },
+    formState: { errors },
     register,
     handleSubmit,
     setValue,
     watch,
+    setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { otp: new Array(6).fill("") },
   });
+  const { otpVerify, error: apiError, isLoading } = useAuthStore();
   const otp = watch("otp");
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -64,11 +69,18 @@ const OtpVerificationPage: React.FC = () => {
     }
   };
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     const otpCode = data.otp.join("");
-    console.log("Submitted OTP:", otpCode);
-
-    navigate("/");
+    try {
+      await otpVerify(otpCode);
+      setShowToast(true);
+      navigate("/");
+    } catch (error) {
+      setError("root", {
+        message: apiError || "OTP Verification failed",
+        type: "server",
+      });
+    }
   };
 
   const handleResendOtp = () => {
@@ -118,6 +130,9 @@ const OtpVerificationPage: React.FC = () => {
                 </p>
               )}
 
+              {errors.root && (
+                <span className=" text-red-500">{errors.root.message}</span>
+              )}
               <div className="flex justify-between items-center w-full mt-4">
                 <button
                   type="button"
@@ -128,12 +143,19 @@ const OtpVerificationPage: React.FC = () => {
                   Resend OTP
                 </button>
 
-                <Button type="submit" label="Verify" disabled={isValid} />
+                <Button type="submit" label="Verify" isLoading={isLoading} />
               </div>
             </form>
           </div>
         </div>
       </div>
+
+      {showToast && (
+        <SuccessToast
+          message="OTP verified successfully!"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </section>
   );
 };
