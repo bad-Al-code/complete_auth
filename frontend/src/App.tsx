@@ -1,11 +1,5 @@
-import SignupPage from "./pages/auth/SignupPage";
-
 const App: React.FC = () => {
-  return (
-    <div>
-      <SignupPage />
-    </div>
-  );
+  return <div>App</div>;
 };
 
 export default App;
