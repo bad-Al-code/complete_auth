@@ -1,3 +1,10 @@
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 export const requirements = [
   { label: "At least 6 characters", re: /.{6,}/ },
   { label: "At least one uppercase letter", re: /[A-Z]/ },
