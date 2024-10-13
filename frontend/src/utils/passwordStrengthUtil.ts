@@ -11,19 +11,19 @@ export const requirements: Requirement[] = [
 ];
 
 export function getStrength(password: string): number {
-  if (password.length < 5) {
-    return 10;
+  let strength = 0;
+
+  if (password.length >= 6) {
+    strength += 20;
   }
 
-  let multiplier = password.length > 5 ? 0 : 1;
-
   requirements.forEach((requirement) => {
-    if (!requirement.re.test(password)) {
-      multiplier += 1;
+    if (requirement.re.test(password)) {
+      strength += 20;
     }
   });
 
-  return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 10);
+  return Math.min(strength, 100);
 }
 
 export function getStrengthColor(strength: number): string {
