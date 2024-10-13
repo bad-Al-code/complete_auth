@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
-import { useState } from "react";
 import Button from "../../components/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
 
 const passwordSchema = z
   .string()
@@ -44,18 +46,24 @@ const SignupPage: React.FC = () => {
     register,
     handleSubmit,
     watch,
+    setError,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-
+  const { signup, error: apiError, isLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false);
   const passwordValue = watch("password") || "";
 
-  const onSubmit = (data: FieldValues) => {
-    console.log("Form Data:", data);
-    // Add form submission logic here
-
-    navigate("/otpVerify");
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      await signup(data.email, data.password, data.name);
+      navigate("/otpVerify");
+    } catch (error) {
+      setError("root", {
+        message: apiError || "Signup failed",
+        type: "server",
+      });
+    }
   };
 
   return (
@@ -173,7 +181,17 @@ const SignupPage: React.FC = () => {
                 )}
               </div>
 
-              <Button type="submit" label="Create an account" fullWidth />
+              {errors.root && (
+                <span className="mt-2 text-red-500">{errors.root.message}</span>
+              )}
+
+              <Button
+                type="submit"
+                label="Create an account"
+                fullWidth
+                isLoading={isLoading}
+                disabled={isLoading}
+              />
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
