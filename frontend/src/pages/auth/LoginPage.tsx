@@ -2,6 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../components/Button";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z
@@ -20,8 +21,12 @@ const LoginPage: React.FC = () => {
     handleSubmit,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const navigate = useNavigate();
+
   const onSubmit = (data: FieldValues) => {
     console.log("Form Data:", data);
+
+    navigate("/");
   };
 
   return (
@@ -97,24 +102,24 @@ const LoginPage: React.FC = () => {
                   </div>
                 </div>
 
-                <a
-                  href="#"
+                <Link
+                  to="/forgotPassword"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
 
               <Button type="submit" label="Log In" fullWidth />
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
-                <a
-                  href="#"
+                <Link
+                  to="/signup"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Create an account
-                </a>
+                </Link>
               </p>
             </form>
           </div>

@@ -5,6 +5,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   otp: z
@@ -30,6 +31,8 @@ const OtpVerificationPage: React.FC = () => {
     resolver: zodResolver(schema),
     defaultValues: { otp: new Array(6).fill("") },
   });
+
+  const navigate = useNavigate();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -67,6 +70,8 @@ const OtpVerificationPage: React.FC = () => {
   const onSubmit = (data: FieldValues) => {
     const otpCode = data.otp.join("");
     console.log("Submitted OTP:", otpCode);
+
+    navigate("/");
   };
 
   const handleResendOtp = () => {
