@@ -158,7 +158,7 @@ export const forgotPassword = async (req, res) => {
 
     await sendPasswordResetEmail(
       user.email,
-      `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`,
+      `${process.env.CLIENT_URL}/reset-password/${resetPasswordToken}`
     );
 
     res.status(200).json({
@@ -206,5 +206,26 @@ export const resetPassword = async (req, res) => {
       success: false,
       message: error.message,
     });
+  }
+};
+
+export const checkAuth = async (req, res) => {
+  const user = await User.findById(req.userId);
+  try {
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+
+    res.status(200).json({
+      success: true,
+      user: {
+        ...user._doc,
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    console.log("Error in checkAuth", error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
